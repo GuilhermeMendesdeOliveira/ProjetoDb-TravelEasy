@@ -1,12 +1,15 @@
 package application;
 
-import model.entities.Cliente;
+import model.dao.DaoFactory;
+import model.dao.ViagemDao;
+import model.entities.Viagem;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Cliente obj = new Cliente(1, "Maria", 153694067, "maria@gmail.com", 22445566);
-		System.out.println(obj);
+		ViagemDao viagemDao = DaoFactory.createViagemDao();
+		Viagem viagem = viagemDao.findById(4);
+		System.out.println(viagem);
 	}
 }
