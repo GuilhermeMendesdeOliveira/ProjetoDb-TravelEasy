@@ -1,16 +1,12 @@
 package application;
 
-import java.sql.Connection;
-
-import db.DB;
+import model.entities.Cliente;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Connection conn = DB.getConnection();
-		DB.closeConnection();
-
+		Cliente obj = new Cliente(1, "Maria", 153694067, "maria@gmail.com", 22445566);
+		System.out.println(obj);
 	}
-
 }
