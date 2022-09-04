@@ -9,6 +9,7 @@ public class Program {
 	public static void main(String[] args) {
 		
 		ViagemDao viagemDao = DaoFactory.createViagemDao();
+		System.out.println("===== teste 1: viagem finByID =====");
 		Viagem viagem = viagemDao.findById(4);
 		System.out.println(viagem);
 	}
