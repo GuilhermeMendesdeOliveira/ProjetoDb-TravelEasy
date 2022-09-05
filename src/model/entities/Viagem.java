@@ -1,7 +1,11 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
+
+import model.dao.ViagemDao;
 
 public class Viagem implements Serializable {
 
@@ -10,17 +14,36 @@ public class Viagem implements Serializable {
 	private Integer viagem_ID;
 	private String origem;
 	private String destino;
+	private Integer codigo_linha;
 	
-	private Cliente cliente;
+	private LinhaAerea linhaAerea;
 	
 	public Viagem() {
 	}
 
-	public Viagem(Integer viagem_ID, String origem, String destino, Cliente cliente) {
+	public Viagem(Integer viagem_ID, String origem, String destino, Integer codigo_linha, LinhaAerea linhaAerea) {
+		super();
 		this.viagem_ID = viagem_ID;
 		this.origem = origem;
 		this.destino = destino;
-		this.cliente = cliente;
+		this.codigo_linha = codigo_linha;
+		this.linhaAerea = linhaAerea;
+	}
+	
+	public LinhaAerea getLinhaAerea() {
+		return linhaAerea;
+	}
+
+	public void setLinhaAerea(LinhaAerea linhaAerea) {
+		this.linhaAerea = linhaAerea;
+	}
+
+	public Integer getCodigo_linha() {
+		return codigo_linha;
+	}
+
+	public void setCodigo_linha(Integer codigo_linha) {
+		this.codigo_linha = codigo_linha;
 	}
 
 	public Integer getViagem_ID() {
@@ -47,14 +70,6 @@ public class Viagem implements Serializable {
 		this.destino = destino;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(viagem_ID);
@@ -74,11 +89,82 @@ public class Viagem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "viagem \nviagem_ID = " + viagem_ID + ", origem = " + origem + ", destino = " + destino + ", cliente = " + cliente;
+		return "\nviagem_ID = " + viagem_ID + "\norigem = " + origem + "\ndestino = " + destino + "\nlinha aerea = " + getLinhaAerea() + "\n=====================\n";
 	}
 	
+	public void inserirViagem(ViagemDao viagemDao) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Cadastrar nova viagem!");
+		System.out.print("Origem: ");
+		String origem = sc.nextLine();
+		System.out.print("Destino: ");
+		String destino = sc.nextLine();
+		System.out.print("Codigo da linha aerea: ");
+		int codigoLinha = sc.nextInt();
+		
+		Viagem novaViagem = new Viagem(viagem_ID, origem, destino, codigo_linha, linhaAerea);
+		viagemDao.insert(novaViagem);
+		sc.close();
+		System.out.println("Viagem adicionada com sucesso!");
+	}
 	
+	public void atualizarViagem(Viagem viagem, ViagemDao viagemDao) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Atualizar viagem!");
+		System.out.print("Digite o ID da viagem:");
+		int id = sc.nextInt();
+		viagem = viagemDao.findById(id);
+		System.out.println("O que deseja atualizar");
+		System.out.println("1 - Origem \n2 - Destino");
+		int resp = sc.nextInt();
+		if (resp > 3) {
+			System.out.println("Escolha uma opção valida.");
+		}
+		else {
+			switch (resp) {
+			case 1:
+				System.out.print("Digite uma nova origem: ");
+				sc.nextLine();
+				String origem = sc.nextLine();
+				viagem.setOrigem(origem);
+				break;
+			case 2:
+				System.out.print("Digite um novo destino: ");
+				sc.nextLine();
+				String destino = sc.nextLine();
+				viagem.setDestino(destino);
+				break;
+			case 3:
+				System.out.print("Digite uma nova origem: ");
+				sc.nextLine();
+				origem = sc.nextLine();
+				viagem.setOrigem(origem);
+				System.out.print("Digite um novo destino: ");
+				sc.nextLine();
+				destino = sc.nextLine();
+				viagem.setDestino(destino);
+				break;
+			}
+		}
+		System.out.println("Atualização feita com sucesso!");
+	}
 	
-	
+	public void deletarViagemPorId(Integer id, ViagemDao viagemDao) {
+		viagemDao.deleteByID(id);
+		System.out.println("Viagem deletada com sucesso!");
+	}
+	public void procurarViagemPorId(Integer id, Viagem viagem, ViagemDao viagemDao) {
+		viagem = viagemDao.findById(id);
+		System.out.println(viagem);
+	}
+	public void mostrarTodasViagens(ViagemDao viagemDao) {
+		System.out.println("Mostrar todas as viagens!");
+		Viagem viagem = new Viagem();
+		List<Viagem> list = viagemDao.findAll(viagem);
+		for (Viagem viagens : list) {
+			System.out.println(viagens);
+		}
+	}
 	
 }

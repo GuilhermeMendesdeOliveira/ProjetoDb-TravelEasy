@@ -6,9 +6,9 @@ import model.entities.Cliente;
 
 public interface ClienteDao {
 	
-	void insert(Cliente obj);
-	void update(Cliente obj);
+	void insert(Cliente cliente);
+	void update(Cliente cliente);
 	void deleteByID(Integer id);
 	Cliente findById(Integer id);
-	List<Cliente> findAll();
+	List<Cliente> findAll(Cliente cliente);
 }

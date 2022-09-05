@@ -6,9 +6,9 @@ import model.entities.Viagem;
 
 public interface ViagemDao {
 
-	void insert(Viagem obj);
-	void update(Viagem obj);
+	void insert(Viagem viagem);
+	void update(Viagem viagem);
 	void deleteByID(Integer id);
 	Viagem findById(Integer id);
-	List<Viagem> findAll();
+	List<Viagem> findAll(Viagem viagem);
 }
