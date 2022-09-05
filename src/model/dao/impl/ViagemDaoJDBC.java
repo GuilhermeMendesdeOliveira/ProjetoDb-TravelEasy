@@ -119,8 +119,8 @@ public class ViagemDaoJDBC implements ViagemDao{
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if(rs.next()) {
-				Cliente cliente = instantiateCliente(rs);
-				Viagem viagem = instantiateViagem(rs, cliente);
+				
+				Viagem viagem = instantiateViagem(rs);
 				return viagem;
 			}
 			return null;
@@ -153,7 +153,7 @@ public class ViagemDaoJDBC implements ViagemDao{
 					cliente = instantiateCliente(rs);
 					map.put(rs.getInt("viagem_ID"), cliente);
 				}
-				viagem = instantiateViagem(rs, cliente);
+				viagem = instantiateViagem(rs);
 				list.add(viagem);
 			}
 			return list;
@@ -167,7 +167,7 @@ public class ViagemDaoJDBC implements ViagemDao{
 		}
 	}
 	
-	private Viagem instantiateViagem(ResultSet rs, Cliente cliente) throws SQLException {
+	private Viagem instantiateViagem(ResultSet rs) throws SQLException {
 		Viagem viagem = new Viagem();
 		viagem.setViagem_ID(rs.getInt("viagem_ID"));
 		viagem.setOrigem(rs.getString("origem"));

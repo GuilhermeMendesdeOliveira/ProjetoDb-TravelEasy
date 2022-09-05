@@ -53,7 +53,7 @@ public class LinhaAereaDaoJDBC implements LinhaAereaDao {
 	public void update(LinhaAerea linhaAerea) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("UPDATE linha_aerea SET nome = ? WHERE linha_ID = ? ");
+			st = conn.prepareStatement("UPDATE linha_aerea SET nome = ? WHERE linha_id = ? ");
 			
 			st.setString(1, linhaAerea.getNome());
 			st.setInt(2, linhaAerea.getLinhaID());
@@ -72,7 +72,7 @@ public class LinhaAereaDaoJDBC implements LinhaAereaDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM linha_aerea WHERE linha_ID = ? ");
+			st = conn.prepareStatement("DELETE FROM linha_aerea WHERE linha_id = ? ");
 			st.setInt(1, id);
 			int teste = st.executeUpdate();
 			if (teste == 0) {

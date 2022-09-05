@@ -19,6 +19,7 @@ public class Cliente implements Serializable {
 	private Integer viagem_ID;
 	
 	private Viagem viagem;
+	private LinhaAerea linha;
 	
 	public Cliente() {
 	}
@@ -32,8 +33,16 @@ public class Cliente implements Serializable {
 		this.viagem_ID = viagem_ID;
 		this.viagem = viagem;
 	}
-
 	
+	
+	public LinhaAerea getLinha() {
+		return linha;
+	}
+
+	public void setLinha(LinhaAerea linha) {
+		this.linha = linha;
+	}
+
 	public Viagem getViagem() {
 		return viagem;
 	}
@@ -133,7 +142,6 @@ public class Cliente implements Serializable {
 			Viagem viagem = new Viagem();
 			Cliente novoCliente = new Cliente(null, nome, cpf, email, telefone, id, viagem);
 			clienteDao.insert(novoCliente);
-			sc.close();
 			System.out.println("Cliente adicionado com sucesso!");
 	}
 
@@ -144,7 +152,7 @@ public class Cliente implements Serializable {
 		int id = sc.nextInt();
 		cliente = clienteDao.findById(id);
 		System.out.println("O que deseja alterar?");
-		System.out.println("1 - Email \n2 - Telefone");
+		System.out.println("1 - Email \n2 - Telefone\n3 - Todas as opções");
 		int resp = sc.nextInt();
 		if(resp > 3) {
 			System.out.println("Escolha invalida. Tente novamente");
@@ -169,14 +177,12 @@ public class Cliente implements Serializable {
 				email = sc.nextLine();
 				cliente.setEmail(email);
 				System.out.print("Digite o novo telefone: ");
-				sc.nextLine();
 				telefone = sc.nextInt();
 				cliente.setTelefone(telefone);
 				break;
 			}
 		}
 		clienteDao.update(cliente);
-		sc.close();
 		System.out.println("Atualização finalizada!");
 	}
 

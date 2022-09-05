@@ -89,7 +89,7 @@ public class Viagem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "\nviagem_ID = " + viagem_ID + "\norigem = " + origem + "\ndestino = " + destino + "\nlinha aerea = " + getLinhaAerea() + "\n=====================\n";
+		return "\nviagem_ID = " + viagem_ID + "\norigem = " + origem + "\ndestino = " + destino + "\ncodigo linha aerea = " + codigo_linha + "\n=====================\n";
 	}
 	
 	public void inserirViagem(ViagemDao viagemDao) {
@@ -103,9 +103,9 @@ public class Viagem implements Serializable {
 		System.out.print("Codigo da linha aerea: ");
 		int codigoLinha = sc.nextInt();
 		
-		Viagem novaViagem = new Viagem(viagem_ID, origem, destino, codigo_linha, linhaAerea);
+		LinhaAerea linha = new LinhaAerea();
+		Viagem novaViagem = new Viagem(viagem_ID, origem, destino, codigo_linha, linha);
 		viagemDao.insert(novaViagem);
-		sc.close();
 		System.out.println("Viagem adicionada com sucesso!");
 	}
 	
@@ -116,7 +116,7 @@ public class Viagem implements Serializable {
 		int id = sc.nextInt();
 		viagem = viagemDao.findById(id);
 		System.out.println("O que deseja atualizar");
-		System.out.println("1 - Origem \n2 - Destino");
+		System.out.println("1 - Origem \n2 - Destino\n3 - Todas as opções");
 		int resp = sc.nextInt();
 		if (resp > 3) {
 			System.out.println("Escolha uma opção valida.");
@@ -141,7 +141,6 @@ public class Viagem implements Serializable {
 				origem = sc.nextLine();
 				viagem.setOrigem(origem);
 				System.out.print("Digite um novo destino: ");
-				sc.nextLine();
 				destino = sc.nextLine();
 				viagem.setDestino(destino);
 				break;

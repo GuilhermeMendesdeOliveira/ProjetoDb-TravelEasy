@@ -120,7 +120,6 @@ public class ClienteDaoJDBC implements ClienteDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				
 				Viagem viagem = instantiateViagem(rs);
 				Cliente cliente= instantiateCliente(rs, viagem);
 				return cliente;

@@ -58,7 +58,7 @@ public class LinhaAerea implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LinhaAerea [nome=" + nome + ", linhaID=" + linhaID + "]";
+		return "Linhas Aereas \nNome = " + nome + "\nLinhaID = " + linhaID;
 	}
 	
 	public void inserirLinhaAerea(LinhaAereaDao linhaAereaDao) {
@@ -69,7 +69,6 @@ public class LinhaAerea implements Serializable {
 		String nome = sc.nextLine();
 		LinhaAerea novalinha = new LinhaAerea(nome, null);
 		linhaAereaDao.insert(novalinha);
-		sc.close();
 		System.out.println("Linha aerea adicionada com sucesso!");
 	}
 	public void atualizarLinhaAerea(LinhaAerea linhaAerea, LinhaAereaDao linhaAereaDao) {
@@ -78,8 +77,9 @@ public class LinhaAerea implements Serializable {
 		System.out.print("Digite o ID da linha aerea: ");
 		int id = sc.nextInt();
 		linhaAerea = linhaAereaDao.findById(id);
-		System.out.println("Digite o novo nome da linha aerea: ");
+		System.out.print("Digite o novo nome da linha aerea: ");
 		String nome = sc.nextLine();
+		sc.next();
 		linhaAerea.setNome(nome);
 		System.out.println("Atualização feita com sucesso!");
 	}
